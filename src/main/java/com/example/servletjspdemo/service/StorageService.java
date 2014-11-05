@@ -18,4 +18,10 @@ public List<Person> getAllPersons(){
 return db;
 }
 
+public int length() {
+	return db.size();
+}
+
+
+
 }

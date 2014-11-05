@@ -57,7 +57,7 @@ this.opis = opis;
 public String getGupi() {
 return gupi;
 }
-public void setGupi(String opis) {
+public void setGupi(String gupi) {
 this.gupi = gupi;
 }
 
