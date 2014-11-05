@@ -48,7 +48,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>servletjspdemo</finalName>
+		<finalName>servletjspdemo2</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -83,6 +83,6 @@
 		</plugins>
 	</build>
 
-	<artifactId>servletjspdemo</artifactId>
+	<artifactId>servletjspdemo2</artifactId>
 </project>
 
