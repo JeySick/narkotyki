@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.example.servletjspdemo.domain.Person;
+import com.example.servletjspdemo.domain.Drug;
 
 
 
@@ -28,9 +28,9 @@ HttpSession httpSession = request.getSession();
 
 if(request.getSession().getAttribute("kosmita") == null){
 
-request.getSession().setAttribute("kosmita", new Person());
+request.getSession().setAttribute("kosmita", new Drug());
 }
-Person person = (Person) request.getSession().getAttribute("kosmita");
+Drug person = (Drug) request.getSession().getAttribute("kosmita");
 
 
 

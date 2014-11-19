@@ -12,81 +12,55 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.example.servletjspdemo.domain.Person;
-import com.example.servletjspdemo.service.StorageService;
+import com.example.servletjspdemo.domain.Drug;
+import com.example.servletjspdemo.service.CoffeeShop;
 
 
 @WebServlet (urlPatterns = "/personData")
 
 public class PersonData extends HttpServlet {
-//	@Override
-//	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-//			throws ServletException, IOException {
-//		
-//		PrintWriter writer = resp.getWriter();
-//		StorageService data = (StorageService) getServletContext().getAttribute("baza");
-//		
-//		if(req.getSession().getAttribute("osoba") == null)
-//		{
-//			req.getSession().setAttribute("osoba", new Person());
-//		}
-//		
-//		Person osoba = (Person) req.getSession().getAttribute("osoba");
-//		
-//		writer.println("<html>");
-//		writer.println("<head><title>Prosty formularz</title></head>");
-//		
-//		osoba.setFirstName(req.getParameter("imie"));
-//		
-//		osoba.setYob(Integer.parseInt(req.getParameter("rokUrodzenia")));
-//		
-//		osoba.setPlec(req.getParameter("plec"));
-//		
-//		String podaneHobby = "";
-//		for (String hobby : req.getParameterValues("sports")) {
-//		podaneHobby += hobby + ", ";
-//		}
-//		
-//		osoba.setHobby(podaneHobby);
-//		
-//		
-//		osoba.setOpisSiebie(req.getParameter("ta"));
-//		
-//		osoba.setWyksztalcenie(req.getParameter("wksz"));
-//		
-//		data.add(osoba);
-//		
-//	
-//		
-//		writer.println("<body><h1>Nasze Osoby to:</h1>");
-//		for(int j=0;j<data.size();j++)
-//		{
-//		writer.println("<br>Imie :"
-//				+ data.getAllPersons().get(j).getFirstName() 
-//				+ "<br>Rok Urodzenia: " 
-//				+ data.getAllPersons().get(j).getYob()
-//				+ "<br>Plec: "
-//				+ data.getAllPersons().get(j).getPlec()
-//				+ "<br>Hobby: "
-//				+ data.getAllPersons().get(j).getHobby()
-//				+ "<br>Krotki Opis Siebie: "
-//				+ data.getAllPersons().get(j).getOpisSiebie()
-//				+ "<br>Wyksztalcenie: "
-//				+ data.getAllPersons().get(j).getWyksztalcenie()
-//				);
-//		}
-//		
-//		writer.println("</body>");
-//		writer.println("</html>");
-//		writer.close();
-//	}
-//	
-//	@Override
-//	public void init() throws ServletException {
-//		if(getServletContext().getAttribute("baza") == null)
-//		{
-//			getServletContext().setAttribute("baza", new StorageService());
-//		}
-//	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+		CoffeeShop data = (CoffeeShop) getServletContext().getAttribute("baza");
+		
+		if(req.getSession().getAttribute("osoba") == null)
+		{
+			req.getSession().setAttribute("osoba", new Drug());
+		}
+		
+		Drug osoba = (Drug) req.getSession().getAttribute("osoba");
+		
+		osoba.setNazwa(req.getParameter("drugName"));
+		
+		osoba.setCzas((req.getParameter("czasDzialania")));
+		
+		osoba.setRodzaj(req.getParameter("rodzaj"));
+		
+		String symptomy = "";
+		for (String sympto : req.getParameterValues("symptomy")) {
+		symptomy += sympto + ", ";
+		}
+		osoba.setSymptomy(symptomy);
+		
+		osoba.setOpis(req.getParameter("opisDzialania"));
+		osoba.setRodzina(req.getParameter("rodzina"));
+
+		
+		data.add(osoba);
+		if(data.getAllPersons().size() >= 1) resp.sendRedirect("addPerson.jsp");
+		else resp.sendRedirect(req.getContextPath());
+		
+	}
+
+	@Override
+	public void init() throws ServletException {
+		if(getServletContext().getAttribute("baza") == null)
+		{
+			getServletContext().setAttribute("baza", new CoffeeShop());
+		}
+	}
 
 }
+	

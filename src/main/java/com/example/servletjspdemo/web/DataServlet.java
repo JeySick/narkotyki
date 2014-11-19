@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.example.servletjspdemo.domain.Person;
-import com.example.servletjspdemo.service.StorageService;
+import com.example.servletjspdemo.domain.Drug;
+import com.example.servletjspdemo.service.CoffeeShop;
 
-@WebServlet(urlPatterns = "/odbior")
+@WebServlet(urlPatterns = "/dajsewzyle")
 public class DataServlet extends HttpServlet {
 
 private static final long serialVersionUID = 1L;
@@ -20,18 +20,18 @@ private static final long serialVersionUID = 1L;
 
 
 @Override
-protected void doGet(HttpServletRequest request, HttpServletResponse response)
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
 throws ServletException, IOException {
 
 response.setContentType("text/html");
 
 PrintWriter out = response.getWriter();
 		
-		StorageService data = (StorageService) getServletContext().getAttribute("baza");
+		CoffeeShop dealer = (CoffeeShop) getServletContext().getAttribute("drugData");
 		
-		if(request.getSession().getAttribute("kosmita") == null)
+		if(request.getSession().getAttribute("newDrug") == null)
 		{
-			request.getSession().setAttribute("kosmita", new Person());
+			request.getSession().setAttribute("newDrug", new Drug());
 		}
 
 
@@ -66,31 +66,16 @@ PrintWriter out = response.getWriter();
 	selectedWyksztalcenie += wyksztalcenie + " ";
 	}
 
-	Person person = new Person(selectedImie, selectedNazwisko, selectedPlec, selectedHobby, selectedOpis, selectedWyksztalcenie);
-	data.add(person);
+	Drug mixture = new Drug(selectedImie, selectedNazwisko, selectedPlec, selectedHobby, selectedOpis, selectedWyksztalcenie);
+	dealer.add(mixture);
 	
-	out.println("<html><body><h2>Wszystkie dane :</h2>");
-	for (int i = 0; i < data.length(); i++) {
-	
-
-		out.println(
-	"<p>Imie: " + data.getAllPersons().get(i).getImie() + "<br />" +
-	"<p>Nazwisko: " + data.getAllPersons().get(i).getNazwisko() + "<br />" +
-	"<p>Plec: " + data.getAllPersons().get(i).getPlec() + "<br />" +
-	"<p>Hobby: " + data.getAllPersons().get(i).getHobby()+ "<br />" +
-	"<p>Opis: " + data.getAllPersons().get(i).getOpis() + "<br />" +
-	"<p>Wyksztalcenie: " + data.getAllPersons().get(i).getGupi() + "<br />"+ "<br />"+ "<br />");
-	}
-	out.print("</body></html>");
-out.close();
-
 }
 
 @Override
 public void init() throws ServletException {
-	if(getServletContext().getAttribute("baza") == null)
+	if(getServletContext().getAttribute("drugData") == null)
 	{
-		getServletContext().setAttribute("baza", new StorageService());
+		getServletContext().setAttribute("drugData", new CoffeeShop());
 	}
 }
 
